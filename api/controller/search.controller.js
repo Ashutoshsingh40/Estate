@@ -1,0 +1,481 @@
+import { Listing } from '../models/listing.model.js';
+export const search =async(req,res)=>
+{
+  console.log(req.query.searchterm)
+    if(req.query.sort==='Price high to low')
+    {
+    let rent=false;
+    let sell=false;
+    if(req.query.type==='rs')
+    {
+       rent=true;
+       sell=true;
+       const a=await Listing.aggregate([
+        {
+         '$match':
+         {
+           $and:[{
+            $or:[
+                {
+                  'name':{'$regex':`^${req.query.searchterm}`}
+                },
+                {
+                  'description':{'$regex':`^${req.query.searchterm}`}
+                     
+                }, 
+                {
+                  'address':{ '$regex':`^${req.query.searchterm}`}
+                }
+             ]
+           },
+           {
+            $or:[
+              {rent:true},
+              {sell:true}
+              ]
+           }
+          ]
+         }
+        },
+        {
+            '$sort':
+            {
+                'regular':-1
+            }
+        },
+         {
+             '$project':
+             {
+                 'name':1,
+                 'description':1,
+                 'address':1,
+                 'rent':1,
+                 'sell':1,
+                 'offer':1,
+                 'regular':1,
+                 'list':{ '$arrayElemAt': ["$list", 0] },
+                 'bed':1,
+                 'bath':1
+             }
+         }
+     ])
+     console.log(a)
+     res.json({'r':a})
+    }
+    else
+   {
+      if(req.query.type==='rent')
+      {
+          rent=true;
+      }
+      else
+      {
+         sell=true;
+      }
+      const a=await Listing.aggregate([
+        {
+         '$match':
+         {
+            $or:[
+                {
+                  'name':{'$regex':`^${req.query.searchterm}`}
+                },
+                {
+                  'description':{'$regex':`^${req.query.searchterm}`}
+                     
+                }, 
+                {
+                  'address':{ '$regex':`^${req.query.searchterm}`}
+                }
+             ],
+                 'rent':rent,
+                 'sell':sell,
+                  'offer':(req.query.offer==='true'?true:false),
+                  'parking':(req.query.parking==='true'?true:false),
+                  'furnished':(req.query.furnished==='true'?true:false),
+         }
+        },
+        {
+            '$sort':
+            {
+                'regular':-1
+            }
+        },
+         {
+             '$project':
+             {
+                 'name':1,
+                 'description':1,
+                 'address':1,
+                 'rent':1,
+                 'sell':1,
+                 'offer':1,
+                  'regular':1,
+                  'list':{ '$arrayElemAt': ["$list", 0] },
+                  'bed':1,
+                  'bath':1
+             }
+         }
+     ])
+     console.log(a)
+     res.json({'r':a})
+   } 
+    }
+    else if(req.query.sort==='Price low to high')
+    {
+        let rent=false;
+        let sell=false;
+        if(req.query.type==='rs')
+        {
+           rent=true;
+           sell=true;
+           const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+               $and:[{
+            $or:[
+                {
+                  'name':{'$regex':`^${req.query.searchterm}`}
+                },
+                {
+                  'description':{'$regex':`^${req.query.searchterm}`}
+                     
+                }, 
+                {
+                  'address':{ '$regex':`^${req.query.searchterm}`}
+                }
+             ]
+           },
+           {
+            $or:[
+              {rent:true},
+              {sell:true}
+              ]
+           }
+          ]
+             }
+            },
+            {
+                '$sort':
+                {
+                    'regular':1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                      'list':{ '$arrayElemAt': ["$list", 0] },
+                      'bed':1,
+                      'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+        }
+        else
+       {
+          if(req.query.type==='rent')
+          {
+              rent=true;
+          }
+          else
+          {
+             sell=true;
+          }
+          const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+                $or:[
+                    {
+                      'name':{'$regex':`^${req.query.searchterm}`}
+                    },
+                    {
+                      'description':{'$regex':`^${req.query.searchterm}`}
+                         
+                    }, 
+                    {
+                      'address':{ '$regex':`^${req.query.searchterm}`}
+                    }
+                 ],
+                     'rent':rent,
+                     'sell':sell,
+                      'offer':(req.query.offer==='true'?true:false),
+                      'parking':(req.query.parking==='true'?true:false),
+                      'furnished':(req.query.furnished==='true'?true:false),
+             }
+            },
+            {
+                '$sort':
+                {
+                    'regular':1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                      'list':{ '$arrayElemAt': ["$list", 0] },
+                       'bed':1,
+                       'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+       }
+    }
+    else if(req.query.sort==='Latest')
+    {
+        let rent=false;
+        let sell=false;
+        if(req.query.type==='rs')
+        {
+           rent=true;
+           sell=true;
+           const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+               $and:[{
+            $or:[
+                {
+                  'name':{'$regex':`^${req.query.searchterm}`}
+                },
+                {
+                  'description':{'$regex':`^${req.query.searchterm}`}
+                     
+                }, 
+                {
+                  'address':{ '$regex':`^${req.query.searchterm}`}
+                }
+             ]
+           },
+           {
+            $or:[
+              {rent:true},
+              {sell:true}
+              ]
+           }
+          ]
+             }
+            },
+            {
+                '$sort':
+                {
+                    'createdAt':-1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                      'list':{ '$arrayElemAt': ["$list", 0] },
+                       'bed':1,
+                       'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+        }
+        else
+       {
+          if(req.query.type==='rent')
+          {
+              rent=true;
+          }
+          else
+          {
+             sell=true;
+          }
+          const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+                $or:[
+                    {
+                      'name':{'$regex':`^${req.query.searchterm}`}
+                    },
+                    {
+                      'description':{'$regex':`^${req.query.searchterm}`}
+                         
+                    }, 
+                    {
+                      'address':{ '$regex':`^${req.query.searchterm}`}
+                    }
+                 ],
+                     'rent':rent,
+                     'sell':sell,
+                      'offer':(req.query.offer==='true'?true:false),
+                      'parking':(req.query.parking==='true'?true:false),
+                      'furnished':(req.query.furnished==='true'?true:false),
+             }
+            },
+            {
+                '$sort':
+                {
+                    'createdAt':-1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                      'list':{ '$arrayElemAt': ["$list", 0] },
+                      'bed':1,
+                      'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+       }
+    }
+    else
+    {
+        let rent=false;
+        let sell=false;
+        if(req.query.type==='rs')
+        {
+           rent=true;
+           sell=true;
+           const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+              $and:[{
+            $or:[
+                {
+                  'name':{'$regex':`^${req.query.searchterm}`}
+                },
+                {
+                  'description':{'$regex':`^${req.query.searchterm}`}
+                     
+                }, 
+                {
+                  'address':{ '$regex':`^${req.query.searchterm}`}
+                }
+             ]
+           },
+           {
+            $or:[
+              {rent:true},
+              {sell:true}
+              ]
+           }
+          ]
+             }
+            },
+            {
+                '$sort':
+                {
+                    'createdAt':1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                     'list':{ '$arrayElemAt': ["$list", 0] },
+                     'bed':1,
+                     'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+        }
+        else
+       {
+          if(req.query.type==='rent')
+          {
+              rent=true;
+          }
+          else
+          {
+             sell=true;
+          }
+          const a=await Listing.aggregate([
+            {
+             '$match':
+             {
+                $or:[
+                    {
+                      'name':{'$regex':`^${req.query.searchterm}`}
+                    },
+                    {
+                      'description':{'$regex':`^${req.query.searchterm}`}
+                         
+                    }, 
+                    {
+                      'address':{ '$regex':`^${req.query.searchterm}`}
+                    }
+                 ],
+                     'rent':rent,
+                     'sell':sell,
+                      'offer':(req.query.offer==='true'?true:false),
+                      'parking':(req.query.parking==='true'?true:false),
+                      'furnished':(req.query.furnished==='true'?true:false),
+             }
+            },
+            {
+                '$sort':
+                {
+                    'createdAt':1
+                }
+            },
+             {
+                 '$project':
+                 {
+                     'name':1,
+                     'description':1,
+                     'address':1,
+                     'rent':1,
+                     'sell':1,
+                     'offer':1,
+                      'regular':1,
+                      'list':{ '$arrayElemAt': ["$list", 0] },
+                      'bed':1,
+                      'bath':1
+                 }
+             }
+         ])
+         console.log(a)
+         res.json({'r':a})
+       }
+    }
+}
