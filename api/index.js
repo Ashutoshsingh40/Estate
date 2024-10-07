@@ -28,7 +28,6 @@ const io=new Server(server,{
     }
   })
   const __dirname = path.resolve();
-  app.use('/public', express.static(path.join(__dirname, 'api', 'public')));
 app.use("/api/auth",authrouter)
 app.use("/api/valid",validrouter)
 app.use("/api/listing",Listings)

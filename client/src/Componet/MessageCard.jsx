@@ -1,7 +1,7 @@
 import { useEffect,useState } from 'react';
 import { io } from 'socket.io-client';
 function MessageCard(props) {
-  const socket = io('/api/socket');
+  const socket = io('http://localhost:3000/api/socket');
   const [message,setMessage]=useState([])
   const [input,setInput]=useState()
   async function MessageFun(thirdParty)
@@ -16,13 +16,13 @@ function MessageCard(props) {
     const data=await res.json();
     console.log(data)
     setMessage(data.messagebox);
-    setInput('')
   }
   useEffect(()=>{
     MessageFun(props.data.thirdParty);
 },[props.data])
   async function Room()
   {
+    setInput('')
     const res=await fetch('/api/interface/message',
       {
         'method':"POST",
@@ -31,6 +31,7 @@ function MessageCard(props) {
       }
     )
     socket.emit('message',{mess:input,thirdParty:props.data.thirdParty})
+    
     socket.off('message');
   }
   useEffect(()=>{
@@ -39,7 +40,6 @@ function MessageCard(props) {
           console.log(input)
           setMessage(prev=>[...prev,data])
         })
-
         return () => {
           socket.off(`${props.data.thirdParty}`);
         };
