@@ -25,10 +25,8 @@ const io=new Server(server,{
       methods:["GET","POST"]
     }
   })
-  server.listen(3000,()=>
-    {
-        console.log('listen on 3000')
-    })
+  const __dirname = path.resolve();
+  app.use('/public', express.static(path.join(__dirname, 'api', 'public')));
 app.use("/api/auth",authrouter)
 app.use("/api/valid",validrouter)
 app.use("/api/listing",Listing)
@@ -44,9 +42,14 @@ io.of('/api/socket').on('connection', (socket)=>
         })
 }
 )
-const __dirname=path.resolve();
+
 app.use(express.static(path.join(__dirname, '/client/dist')))
 app.get('*',(req,res)=>
 {
   res.sendFile(path.join(__dirname,'client','dist','index.html'))
 })
+
+server.listen(3000,()=>
+  {
+      console.log('listen on 3000')
+  })
