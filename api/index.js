@@ -11,6 +11,7 @@ import {delcloudinary} from './controller/delcloudinary.controller.js'
 import { search } from './controller/search.controller.js'
 import interface1 from './routers/interface.route.js'
 import  home  from  './routers/home.route.js'
+import path from 'path'
 const app = express();
 const server=createServer(app);
 app.use(express.json())
@@ -43,3 +44,9 @@ io.of('/api/socket').on('connection', (socket)=>
         })
 }
 )
+const __dirname=path.resolve();
+app.use(express.static(path.join(__dirname, '/client/dist')))
+app.get('*',(req,res)=>
+{
+  res.sendFile(path.join(__dirname,'client','dist','index.html'))
+})
