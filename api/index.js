@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import authrouter from './routers/auth.route.js'
 import validrouter from './routers/valid.router.js'
-import Listing from './routers/Listing.route.js'
+import Listings from './routers/Listing.route.js'
 import {delcloudinary} from './controller/delcloudinary.controller.js'
 import { search } from './controller/search.controller.js'
 import interface1 from './routers/interface.route.js'
@@ -29,7 +29,7 @@ const io=new Server(server,{
   app.use('/public', express.static(path.join(__dirname, 'api', 'public')));
 app.use("/api/auth",authrouter)
 app.use("/api/valid",validrouter)
-app.use("/api/listing",Listing)
+app.use("/api/listing",Listings)
 app.post('/api/deletecloudinary',delcloudinary);
 app.get('/api/search',search);
 app.use('/api/interface',interface1);
