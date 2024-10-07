@@ -33,6 +33,7 @@ function Listing() {
                  {
                   const formdata=new FormData();
                   formdata.append('file',file)
+                  console.log(file)
                   const res =await fetch('/api/listing/fileupload',{
                     method:'POST',
                     body:formdata

@@ -42,7 +42,6 @@ io.of('/api/socket').on('connection', (socket)=>
         })
 }
 )
-
 app.use(express.static(path.join(__dirname, '/client/dist')))
 app.get('*',(req,res)=>
 {
