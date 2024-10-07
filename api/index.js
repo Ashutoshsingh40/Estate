@@ -12,9 +12,11 @@ import { search } from './controller/search.controller.js'
 import interface1 from './routers/interface.route.js'
 import  home  from  './routers/home.route.js'
 import path from 'path'
+import cors from 'cors'
 const app = express();
 const server=createServer(app);
 app.use(express.json())
+app.use(cors());
 mongoose.connect(process.env.MONGO)
 .then(()=> console.log('connected'))
 .catch((err)=>console.log(1));
