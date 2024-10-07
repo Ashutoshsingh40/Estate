@@ -38,7 +38,6 @@ function MessageCard(props) {
         {
           console.log(input)
           setMessage(prev=>[...prev,data])
-          setInput('')
         })
 
         return () => {
