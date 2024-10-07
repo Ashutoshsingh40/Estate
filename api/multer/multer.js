@@ -1,4 +1,5 @@
 import multer from "multer"
+console.log("agya")
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './api/public')
