@@ -1,7 +1,7 @@
 import { useEffect,useState } from 'react';
 import { io } from 'socket.io-client';
 function MessageCard(props) {
-  const socket = io('http://localhost:3000/api/socket');
+  const socket = io('/api/socket');
   const [message,setMessage]=useState([])
   const [input,setInput]=useState()
   async function MessageFun(thirdParty)
