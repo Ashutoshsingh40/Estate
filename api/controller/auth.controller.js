@@ -50,7 +50,6 @@ export const update=async(req,res)=>
    let{id,username,email,password,photo}=req.body;
     try
     {
-      
       const data= await User.findById({_id:id})
      if(password)
      {

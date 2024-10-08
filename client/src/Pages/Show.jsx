@@ -43,7 +43,7 @@ function Show() {
   }
   return (
     <div>
-        {showlist.length!==0?<h2 className='text-2xl font-bold text-center my-6'>Listings</h2>:''} 
+        <h2 className='text-3xl font-bold text-center my-6'>Listings</h2> 
        <div className='ml-96 w-1/2'>
        {
           showlist.map(val=>

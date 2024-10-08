@@ -39,5 +39,4 @@ function OAuth() {
          hover:scale-105'>Continue with google</button>
   )
 }
-
 export default OAuth
