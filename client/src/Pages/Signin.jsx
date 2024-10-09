@@ -26,6 +26,12 @@ function funSub(e)
   })
   .catch((res)=> dispatch(setUser(res)))
 }
+  function checkMessage()
+  {
+    
+    dispatch(setUser({r:null,message:''}))
+    navigate('/sign-up')
+  }
   return (
        <div className='max-w-md mx-auto'>
       <h1 className='text-center font-bold my-7 text-3xl'>Sign In</h1>
@@ -41,7 +47,7 @@ function funSub(e)
       </form>
       <div className='flex justify-normal  py-3 gap-3'>
       <p>Donot Have an account?</p>
-      <NavLink to='/sign-up' className='text-blue-700 underline'>Signup</NavLink>
+      <button onClick={checkMessage} className='text-blue-700 underline'>Signup</button>
      </div>
      <div>
      <h2 className='text-red-600'>{useSelector((state)=>state.userStore.userMessage)}</h2>
