@@ -16,8 +16,13 @@ function Signup() {
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({username,email,password})
     }).then((res)=>res.json())
-    .then((res)=>{Navigate('/sign-in')})
-    .catch((res)=>setMessage(res))
+    .then((res)=>{
+      if(res.message!=='true')
+        setMessage(res.message)
+        else
+      Navigate('/sign-in')
+    })
+    .catch((res)=>console.log(res))
  }
   return (
     <div className='max-w-lg mx-auto '>

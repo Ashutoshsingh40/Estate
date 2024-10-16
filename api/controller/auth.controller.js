@@ -10,7 +10,7 @@ export const signup= async (req,res)=>
     const newUser=User({username,email,password});
     try
     {
-       await newUser.save();
+      await newUser.save();
        return res.json({'message':'true'})
     }catch(error)
     {
