@@ -17,8 +17,8 @@ function Header() {
      <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
     <NavLink to='/'>
     <h1 className='font-bold text-sm sm:text-2xl flex flex-wrap'>
-     <span className='text-slate-500'>XYZ</span>
-     <span className='text-slate-700'>Estate</span>
+     <span className='text-slate-500'>Urban</span>
+     <span className='text-slate-700'>Nest</span>
      </h1>
     </NavLink>
      <div className='bg-slate-100 p-3 rounded-lg flex justify-between items-center w-24 sm:w-72'>
